@@ -3,28 +3,36 @@ def rotate_mtrx(mtrx)
     raise StandardError.new("Matrix vakue error")
   end
 
-  for i in 0..mtrx.length - 1 do
+  first = 0
+  last = mtrx.length-1
+  for i in 0..last-1 do
     
-    # temp = top[i
+    # top -> temp
     temp = mtrx[0][i]
 
-    # top[i] = left[i]
-    mtrx[0][i] = mtrx[i][0]
+    # left -> top
+    mtrx[0][i] = mtrx[last-i][0]
 
-    # left[i] = bottom[i]
-    mtrx[i][0] = mtrx[mtrx.length-1][i]
+    # bottom -> left
+    mtrx[last-i][0] = mtrx[last][last-i]
 
-    # bottom[i] = right[i]
-    mtrx[mtrx.length-1][i] = mtrx[i][mtrx.length-1]
+    # right -> bottom
+    mtrx[last][last-i] = mtrx[i][last]
 
-    # right[i] = top[[i]
-    mtrx[i][mtrx.length-1] = temp
+    # top -> right
+    mtrx[i][last] = temp
 
   end
 end
 
-mtrx = [[1,2,3],[4,5,6,],[7,8,9,]]
+mtrx3x3 = [[1,2,3],[4,5,6,],[7,8,9,]]
+mtrx4x4 = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
 
-puts "from %s to %s" % [mtrx, rotate_mtrx(mtrx)]
+mtrx = mtrx4x4
 
-
+print("\nFrom\n")
+print(mtrx)
+rotate_mtrx(mtrx)
+print("\n\nTo\n")
+print(mtrx)
+print("\n")
