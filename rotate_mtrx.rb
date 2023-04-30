@@ -3,24 +3,29 @@ def rotate_mtrx(mtrx)
     raise StandardError.new("Matrix vakue error")
   end
 
-  first = 0
-  last = mtrx.length-1
-  for i in 0..last-1 do
-    
+  for layer in 0..mtrx.length/2-1 do
+
+  first = layer
+  last = mtrx.length-1-layer
+  
+  for i in first..last-1 do
+    offset = i - first 
     # top -> temp
-    temp = mtrx[0][i]
+    temp = mtrx[first][i]
 
     # left -> top
-    mtrx[0][i] = mtrx[last-i][0]
+    mtrx[first][i] = mtrx[last-offset][first]
 
     # bottom -> left
-    mtrx[last-i][0] = mtrx[last][last-i]
+    mtrx[last-offset][first] = mtrx[last][last-offset]
 
     # right -> bottom
-    mtrx[last][last-i] = mtrx[i][last]
+    mtrx[last][last-offset] = mtrx[i][last]
 
     # top -> right
     mtrx[i][last] = temp
+
+  end
 
   end
 end
