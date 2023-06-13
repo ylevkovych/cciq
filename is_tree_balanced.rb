@@ -38,7 +38,7 @@ class Node
 
 end
 
-def createTree()
+def createBalancedTree()
 
   a2_3 = Node.new("a2_3", nil, nil)
   a2_2 = Node.new("a2_2", nil, nil)
@@ -60,6 +60,27 @@ def createTree()
 
   return n0
 end
+
+def createNonBalancedTree()
+
+  a2_3 = Node.new("a2_3", nil, nil)
+  a2_2 = Node.new("a2_2", nil, nil)
+  a2_1 = Node.new("a2_1", nil, nil)
+  a2_0 = Node.new("a2_0", nil, nil)
+  a1_1 = Node.new("a1_1", a2_2, a2_3)
+  a1_0 = Node.new("a1_0", a2_0, a2_1)
+  a0 = Node.new("a0", a1_0, a1_1)
+
+  b3_0 = Node.new("b3_0", nil, nil)
+  b2_0 = Node.new("b2_0", b3_0, nil)
+  b1_0 = Node.new("b1_0", b2_0, nil)
+  b0 = Node.new("b0", b1_0, nil)
+
+  n0 = Node.new("n0", a0, b0) 
+
+  return n0
+end
+
 
 
 def printTree(root)
@@ -83,8 +104,28 @@ def getHeight(root)
 
 end
 
-tree = createTree()
+def isBalanced(root)
+  if root == nil
+    return true
+  end
 
-printTree(tree)
+  heightDiff = getHeight(root.left) - getHeight(root.right)
 
-puts getHeight(tree)
+  if heightDiff > 1 
+    return false
+  end
+  
+  return isBalanced(root.left) && isBalanced(root.right)
+end
+
+def analyze(tree)
+  puts "\nSTART #################"
+  printTree(tree)
+  puts getHeight(tree)
+  puts "is balanced: " + isBalanced(tree).to_s
+  puts "END #################"
+end
+
+analyze(createBalancedTree())
+
+analyze(createNonBalancedTree())
